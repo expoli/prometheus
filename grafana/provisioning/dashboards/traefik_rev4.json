@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 4475,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1574689270305,
+  "id": 6,
+  "iteration": 1602544790478,
   "links": [],
   "panels": [
     {
@@ -42,6 +42,12 @@
         "#299c46"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -73,7 +79,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -116,6 +121,41 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 5,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -125,47 +165,23 @@
       "id": 2,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 5,
-            "min": 0,
-            "nullValueMode": "connected",
-            "thresholds": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 3
-              }
-            ],
-            "unit": "none"
-          },
-          "override": {},
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.5.0",
+      "pluginVersion": "7.2.1",
       "targets": [
         {
-          "expr": "traefik_service_request_duration_seconds_sum{service=\"$service\"}",
+          "expr": "traefik_service_request_duration_seconds_sum{service=~\"$service\"}",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{$service}} | {{method}}",
           "refId": "A"
@@ -185,6 +201,12 @@
         "threshold": 0
       },
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
@@ -203,14 +225,14 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "options": {},
       "pieType": "pie",
       "pluginVersion": "6.5.0",
       "strokeWidth": 1,
       "targets": [
         {
-          "expr": "avg_over_time(traefik_service_request_duration_seconds_sum{service=\"$service\"}[5m])",
+          "expr": "avg_over_time(traefik_service_request_duration_seconds_sum{service=~\"$service\"}[5m])",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{service}}",
           "refId": "A"
@@ -223,6 +245,28 @@
     {
       "cacheTimeout": null,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 24,
@@ -233,32 +277,22 @@
       "links": [],
       "options": {
         "displayMode": "basic",
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "range"
           ],
-          "defaults": {
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ],
-            "unit": "short"
-          },
-          "override": {},
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal"
+        "showUnfilled": true
       },
-      "pluginVersion": "6.5.0",
+      "pluginVersion": "7.2.1",
       "targets": [
         {
-          "expr": "avg(traefik_service_requests_total{service=\"$service\"})",
+          "expr": "avg(traefik_service_requests_total{service=~\"$service\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{$service}} | {{method}}",
           "refId": "A"
@@ -289,6 +323,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -315,9 +356,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -379,6 +421,29 @@
     },
     {
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -389,30 +454,18 @@
       "links": [],
       "options": {
         "displayMode": "basic",
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "decimals": 0,
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ],
-            "unit": "short"
-          },
+          "fields": "",
           "limit": 10,
-          "override": {},
           "values": false
         },
-        "orientation": "horizontal"
+        "showUnfilled": true
       },
-      "pluginVersion": "6.5.0",
+      "pluginVersion": "7.2.1",
       "targets": [
         {
           "expr": "rate(traefik_entrypoint_requests_total{entrypoint=~\"$entrypoint\",code!=\"200\"}[5m]) * 100",
@@ -424,6 +477,8 @@
         },
         {
           "expr": "avg_over_time",
+          "interval": "",
+          "legendFormat": "",
           "refId": "B"
         }
       ],
@@ -441,6 +496,12 @@
         "threshold": 0
       },
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
@@ -459,7 +520,6 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "options": {},
       "pieType": "pie",
       "strokeWidth": 1,
       "targets": [
@@ -485,6 +545,12 @@
         "threshold": 0
       },
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
@@ -503,7 +569,6 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "options": {},
       "pieType": "pie",
       "strokeWidth": 1,
       "targets": [
@@ -521,7 +586,7 @@
       "valueName": "total"
     }
   ],
-  "schemaVersion": 21,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [
     "traefik",
@@ -532,9 +597,9 @@
       {
         "allValue": null,
         "current": {
-          "tags": [],
-          "text": "prometheus@docker",
-          "value": "prometheus@docker"
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Prometheus",
         "definition": "label_values(service)",
@@ -558,9 +623,10 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "tags": [],
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -689,5 +755,5 @@
   "timezone": "",
   "title": "Traefik2",
   "uid": "qPdAviJmz1",
-  "version": 1
+  "version": 3
 }
